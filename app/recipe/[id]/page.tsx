@@ -31,7 +31,7 @@ export default function RecipePage({ params }: { params: Promise<{ id: string }>
     setCompletedSteps((p) => p.includes(n) ? p.filter((s) => s !== n) : [...p, n]);
 
   return (
-    <div className="min-h-screen pt-14 sm:pt-16 bg-[#FAF8F5] dark:bg-gray-950">
+    <div className="min-h-screen pt-header bg-[#FAF8F5] dark:bg-gray-950">
 
       {/* ── Back ── */}
       <div className="max-w-7xl mx-auto px-3 sm:px-6 pt-3 sm:pt-5 pb-2">
@@ -126,7 +126,7 @@ export default function RecipePage({ params }: { params: Promise<{ id: string }>
             </div>
 
             {/* ── Tabs — sticky on mobile ── */}
-            <div className="sticky top-14 sm:top-16 z-20 -mx-3 px-3 sm:mx-0 sm:px-0 bg-[#FAF8F5] dark:bg-gray-950 pt-1 pb-0 mb-5 sm:mb-7">
+            <div className="sticky top-header z-20 -mx-3 px-3 sm:mx-0 sm:px-0 bg-[#FAF8F5] dark:bg-gray-950 pt-1 pb-0 mb-5 sm:mb-7">
               <div className="flex border-b border-gray-200 dark:border-gray-800">
                 {(["ingredients", "instructions", "nutrition"] as const).map((tab) => (
                   <button

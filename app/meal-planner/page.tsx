@@ -86,7 +86,7 @@ export default function MealPlannerPage() {
   const totalWeekCalories = weekPlan.reduce((sum, day) => sum + getDayCalories(day), 0);
 
   return (
-    <div className="min-h-screen pt-20 bg-gray-50 dark:bg-gray-950">
+    <div className="min-h-screen pt-header bg-gray-50 dark:bg-gray-950">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
 
         {/* Header */}
