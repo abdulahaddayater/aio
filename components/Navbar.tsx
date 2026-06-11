@@ -16,6 +16,11 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handler);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [mobileOpen]);
+
   const links = [
     { href: "/search", label: "Explore" },
     { href: "/ai-chef", label: "AI Chef", icon: Sparkles },
@@ -26,17 +31,16 @@ export default function Navbar() {
   return (
     <nav
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-200",
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-200 safe-top",
         scrolled
           ? "bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border-b border-gray-100 dark:border-gray-800"
           : "bg-[#FAF8F5]/80 dark:bg-gray-950/80 backdrop-blur-sm"
       )}
     >
-      <div className="max-w-7xl mx-auto px-5 sm:px-8">
-        <div className="flex items-center justify-between h-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8">
+        <div className="flex items-center justify-between h-14 sm:h-16">
 
-          {/* Logo — wordmark only, clean */}
-          <Link href="/" className="flex items-center gap-1.5">
+          <Link href="/" className="flex items-center gap-1.5 tap-target -ml-1 px-1">
             <span className="text-lg font-extrabold text-gray-900 dark:text-white tracking-tight">
               AIO
             </span>
@@ -45,7 +49,6 @@ export default function Navbar() {
             </span>
           </Link>
 
-          {/* Desktop nav links */}
           <div className="hidden md:flex items-center gap-7">
             {links.map((l) => (
               <Link
@@ -59,26 +62,28 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Actions */}
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-0.5 sm:gap-1">
             <Link
               href="/search"
-              className="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              className="tap-target flex items-center justify-center rounded-lg text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              aria-label="Search"
             >
               <Search className="w-[18px] h-[18px]" strokeWidth={1.75} />
             </Link>
             <Link
               href="/dashboard"
-              className="relative p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              className="relative tap-target flex items-center justify-center rounded-lg text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              aria-label="Saved recipes"
             >
               <Heart className="w-[18px] h-[18px]" strokeWidth={1.75} />
               {favorites.length > 0 && (
-                <span className="absolute top-1 right-1 w-[7px] h-[7px] bg-[#FF6B35] rounded-full" />
+                <span className="absolute top-2.5 right-2.5 w-[7px] h-[7px] bg-[#FF6B35] rounded-full" />
               )}
             </Link>
             <button
               onClick={toggleDarkMode}
-              className="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              className="tap-target flex items-center justify-center rounded-lg text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              aria-label="Toggle dark mode"
             >
               {darkMode
                 ? <Sun className="w-[18px] h-[18px]" strokeWidth={1.75} />
@@ -86,8 +91,9 @@ export default function Navbar() {
               }
             </button>
             <button
-              className="md:hidden p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
+              className="md:hidden tap-target flex items-center justify-center rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
               onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label={mobileOpen ? "Close menu" : "Open menu"}
             >
               {mobileOpen
                 ? <X className="w-[18px] h-[18px]" strokeWidth={1.75} />
@@ -98,23 +104,42 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile drawer */}
       {mobileOpen && (
-        <div className="md:hidden bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800">
-          <div className="px-5 py-3 space-y-0.5">
-            {links.map((l) => (
+        <>
+          <div
+            className="md:hidden fixed inset-0 top-14 bg-black/40 z-40"
+            onClick={() => setMobileOpen(false)}
+            aria-hidden
+          />
+          <div className="md:hidden fixed left-0 right-0 top-14 z-50 bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800 shadow-lg max-h-[calc(100dvh-3.5rem)] overflow-y-auto safe-bottom">
+            <div className="px-4 py-2">
+              {links.map((l) => (
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  onClick={() => setMobileOpen(false)}
+                  className="flex items-center gap-3 py-4 px-2 text-base font-medium text-gray-700 dark:text-gray-200 active:text-[#FF6B35] border-b border-gray-50 dark:border-gray-800 last:border-0 transition-colors min-h-[52px]"
+                >
+                  {l.icon && <l.icon className="w-4 h-4 text-[#FF6B35]" strokeWidth={1.5} />}
+                  {l.label}
+                </Link>
+              ))}
               <Link
-                key={l.href}
-                href={l.href}
+                href="/dashboard"
                 onClick={() => setMobileOpen(false)}
-                className="flex items-center gap-2 py-3 px-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-[#FF6B35] border-b border-gray-50 dark:border-gray-800 last:border-0 transition-colors"
+                className="flex items-center gap-3 py-4 px-2 text-base font-medium text-gray-700 dark:text-gray-200 active:text-[#FF6B35] min-h-[52px]"
               >
-                {l.icon && <l.icon className="w-3.5 h-3.5 text-[#FF6B35]" strokeWidth={1.5} />}
-                {l.label}
+                <Heart className="w-4 h-4 text-[#FF6B35]" strokeWidth={1.5} />
+                Saved recipes
+                {favorites.length > 0 && (
+                  <span className="ml-auto text-xs font-semibold bg-[#FF6B35] text-white px-2 py-0.5 rounded-full">
+                    {favorites.length}
+                  </span>
+                )}
               </Link>
-            ))}
+            </div>
           </div>
-        </div>
+        </>
       )}
     </nav>
   );

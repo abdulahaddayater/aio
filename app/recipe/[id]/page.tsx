@@ -31,109 +31,118 @@ export default function RecipePage({ params }: { params: Promise<{ id: string }>
     setCompletedSteps((p) => p.includes(n) ? p.filter((s) => s !== n) : [...p, n]);
 
   return (
-    <div className="min-h-screen pt-16 bg-[#FAF8F5] dark:bg-gray-950">
+    <div className="min-h-screen pt-14 sm:pt-16 bg-[#FAF8F5] dark:bg-gray-950">
 
       {/* ── Back ── */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-5 pb-2">
-        <Link href="/search" className="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 pt-3 sm:pt-5 pb-2">
+        <Link href="/search" className="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors tap-target -ml-1 px-1">
           <ChevronLeft className="w-4 h-4" strokeWidth={1.75} /> Back to recipes
         </Link>
       </div>
 
       {/* ── Hero image ── */}
-      <div className="relative h-64 sm:h-80 lg:h-[480px] overflow-hidden">
+      <div className="relative h-52 sm:h-80 lg:h-[480px] overflow-hidden">
         <Image src={recipe.image} alt={recipe.name} fill className="object-cover" sizes="100vw" priority />
         <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 px-5 sm:px-10 pb-6 sm:pb-10">
+        <div className="absolute bottom-0 left-0 right-0 px-4 sm:px-10 pb-5 sm:pb-10">
           <div className="max-w-7xl mx-auto">
-            <div className="flex flex-wrap gap-1.5 mb-3">
-              <span className="text-xs font-semibold tracking-wider uppercase px-2.5 py-1 rounded-full bg-white/15 backdrop-blur-sm text-white border border-white/20">
+            <div className="flex flex-wrap gap-1.5 mb-2 sm:mb-3">
+              <span className="text-[10px] sm:text-xs font-semibold tracking-wider uppercase px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full bg-white/15 backdrop-blur-sm text-white border border-white/20">
                 {recipe.cuisine}
               </span>
               {recipe.dietary.slice(0, 2).map((d) => (
-                <span key={d} className="text-xs font-medium px-2.5 py-1 rounded-full bg-white/10 backdrop-blur-sm text-gray-200 border border-white/15">
+                <span key={d} className="text-[10px] sm:text-xs font-medium px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full bg-white/10 backdrop-blur-sm text-gray-200 border border-white/15">
                   {d}
                 </span>
               ))}
             </div>
-            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight mb-2">{recipe.name}</h1>
-            <p className="text-gray-300 text-sm max-w-xl line-clamp-2 hidden sm:block">{recipe.description}</p>
+            <h1 className="text-xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight mb-1.5 sm:mb-2">{recipe.name}</h1>
+            <p className="text-gray-300 text-xs sm:text-sm max-w-xl line-clamp-2">{recipe.description}</p>
           </div>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-5 sm:py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-12">
 
-          {/* ════ LEFT: main ════ */}
           <div className="lg:col-span-2">
 
-            {/* ── Meta strip ── */}
-            <div className="flex flex-wrap items-center gap-x-6 gap-y-3 py-5 border-b border-gray-200 dark:border-gray-800 mb-6">
-              <div className="flex items-center gap-1.5 text-sm text-gray-600 dark:text-gray-300">
+            {/* ── Meta strip — scroll on mobile ── */}
+            <div className="flex overflow-x-auto scrollbar-hide gap-4 sm:gap-6 sm:flex-wrap sm:overflow-visible items-center py-4 sm:py-5 border-b border-gray-200 dark:border-gray-800 mb-5 sm:mb-6 -mx-3 px-3 sm:mx-0 sm:px-0">
+              <div className="flex items-center gap-1.5 text-sm text-gray-600 dark:text-gray-300 flex-shrink-0">
                 <Clock className="w-4 h-4 text-gray-400" strokeWidth={1.5} />
                 <span>{formatTime(recipe.cookingTime)}</span>
               </div>
-              <div className="flex items-center gap-1.5 text-sm text-gray-600 dark:text-gray-300">
+              <div className="flex items-center gap-1.5 text-sm text-gray-600 dark:text-gray-300 flex-shrink-0">
                 <Users className="w-4 h-4 text-gray-400" strokeWidth={1.5} />
                 <span>{recipe.servings} servings</span>
               </div>
-              <div className="text-sm text-gray-600 dark:text-gray-300">
+              <div className="text-sm text-gray-600 dark:text-gray-300 flex-shrink-0">
                 <span className="text-gray-400 mr-1">Difficulty</span>
                 {recipe.difficulty}
               </div>
-              <div className="text-sm text-gray-600 dark:text-gray-300">
+              <div className="text-sm text-gray-600 dark:text-gray-300 flex-shrink-0">
                 <span className="text-gray-400 mr-1">Calories</span>
-                {recipe.calories} kcal / serving
+                {recipe.calories} kcal
               </div>
-              {/* Rating */}
-              <div className="flex items-center gap-1.5 ml-auto">
+              <div className="flex items-center gap-1.5 flex-shrink-0 sm:ml-auto">
                 <div className="flex items-center gap-0.5">
                   {[1,2,3,4,5].map((i) => (
-                    <Star key={i} className={cn("w-3.5 h-3.5", i <= Math.round(recipe.rating) ? "fill-yellow-400 text-yellow-400" : "text-gray-200 dark:text-gray-700")} strokeWidth={0} />
+                    <Star key={i} className={cn("w-3 h-3 sm:w-3.5 sm:h-3.5", i <= Math.round(recipe.rating) ? "fill-yellow-400 text-yellow-400" : "text-gray-200 dark:text-gray-700")} strokeWidth={0} />
                   ))}
                 </div>
                 <span className="text-sm font-semibold text-gray-900 dark:text-white">{recipe.rating}</span>
-                <span className="text-xs text-gray-400">({recipe.reviewCount.toLocaleString()})</span>
+                <span className="text-xs text-gray-400 hidden sm:inline">({recipe.reviewCount.toLocaleString()})</span>
               </div>
             </div>
 
             {/* ── Action row ── */}
-            <div className="flex items-center gap-2 mb-8 flex-wrap">
+            <div className="grid grid-cols-2 sm:flex sm:items-center gap-2 mb-6 sm:mb-8">
               <button
                 onClick={() => toggleFavorite(recipe.id)}
                 className={cn(
-                  "flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition border",
+                  "flex items-center justify-center gap-2 px-4 py-3 sm:py-2 rounded-xl sm:rounded-lg text-sm font-medium transition border min-h-[44px]",
                   fav
                     ? "bg-[#FF6B35] text-white border-[#FF6B35]"
-                    : "border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:border-[#FF6B35] hover:text-[#FF6B35]"
+                    : "border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 active:border-[#FF6B35] active:text-[#FF6B35]"
                 )}
               >
                 <Heart className={cn("w-4 h-4", fav && "fill-current")} strokeWidth={1.75} />
-                {fav ? "Saved" : "Save recipe"}
+                {fav ? "Saved" : "Save"}
               </button>
-              <button className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 hover:border-gray-400 transition">
+              <button className="flex items-center justify-center gap-2 px-4 py-3 sm:py-2 rounded-xl sm:rounded-lg text-sm font-medium border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 min-h-[44px]">
                 <Share2 className="w-4 h-4" strokeWidth={1.75} />
                 Share
               </button>
             </div>
 
-            {/* ── Tabs ── */}
-            <div className="flex border-b border-gray-200 dark:border-gray-800 mb-7">
-              {(["ingredients", "instructions", "nutrition"] as const).map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className={cn(
-                    "px-4 py-2.5 text-sm font-medium capitalize border-b-2 -mb-px transition-colors",
-                    activeTab === tab
-                      ? "border-[#FF6B35] text-[#FF6B35]"
-                      : "border-transparent text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
-                  )}
-                >
-                  {tab}
-                </button>
-              ))}
+            {/* Video — mobile only, above tabs */}
+            <div className="lg:hidden mb-6">
+              <VideoCard
+                video={recipe.video}
+                fallbackImage={recipe.image}
+                recipeTitle={recipe.name}
+              />
+            </div>
+
+            {/* ── Tabs — sticky on mobile ── */}
+            <div className="sticky top-14 sm:top-16 z-20 -mx-3 px-3 sm:mx-0 sm:px-0 bg-[#FAF8F5] dark:bg-gray-950 pt-1 pb-0 mb-5 sm:mb-7">
+              <div className="flex border-b border-gray-200 dark:border-gray-800">
+                {(["ingredients", "instructions", "nutrition"] as const).map((tab) => (
+                  <button
+                    key={tab}
+                    onClick={() => setActiveTab(tab)}
+                    className={cn(
+                      "flex-1 sm:flex-none px-3 sm:px-4 py-3 sm:py-2.5 text-sm font-medium capitalize border-b-2 -mb-px transition-colors min-h-[44px] sm:min-h-0",
+                      activeTab === tab
+                        ? "border-[#FF6B35] text-[#FF6B35]"
+                        : "border-transparent text-gray-400 active:text-gray-700 dark:active:text-gray-200"
+                    )}
+                  >
+                    {tab}
+                  </button>
+                ))}
+              </div>
             </div>
 
             {/* ── Ingredients ── */}
@@ -145,12 +154,12 @@ export default function RecipePage({ params }: { params: Promise<{ id: string }>
                   <div className="flex items-center gap-3">
                     <button
                       onClick={() => setServings(Math.max(1, servings - 1))}
-                      className="w-7 h-7 rounded-full border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 flex items-center justify-center hover:border-[#FF6B35] hover:text-[#FF6B35] transition text-base font-medium leading-none"
+                      className="w-10 h-10 sm:w-7 sm:h-7 rounded-full border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 flex items-center justify-center active:border-[#FF6B35] active:text-[#FF6B35] transition text-lg sm:text-base font-medium leading-none"
                     >−</button>
-                    <span className="font-semibold text-gray-900 dark:text-white w-4 text-center">{servings}</span>
+                    <span className="font-semibold text-gray-900 dark:text-white w-6 sm:w-4 text-center">{servings}</span>
                     <button
                       onClick={() => setServings(servings + 1)}
-                      className="w-7 h-7 rounded-full border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 flex items-center justify-center hover:border-[#FF6B35] hover:text-[#FF6B35] transition text-base font-medium leading-none"
+                      className="w-10 h-10 sm:w-7 sm:h-7 rounded-full border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 flex items-center justify-center active:border-[#FF6B35] active:text-[#FF6B35] transition text-lg sm:text-base font-medium leading-none"
                     >+</button>
                   </div>
                 </div>
@@ -287,15 +296,16 @@ export default function RecipePage({ params }: { params: Promise<{ id: string }>
             </div>
           </div>
 
-          {/* ════ RIGHT: sidebar ════ */}
+          {/* ════ RIGHT: sidebar — desktop video ── */}
           <div className="space-y-6">
 
-            {/* Video — smart validated card */}
-            <VideoCard
-              video={recipe.video}
-              fallbackImage={recipe.image}
-              recipeTitle={recipe.name}
-            />
+            <div className="hidden lg:block">
+              <VideoCard
+                video={recipe.video}
+                fallbackImage={recipe.image}
+                recipeTitle={recipe.name}
+              />
+            </div>
 
             {/* Tags */}
             {recipe.tags.length > 0 && (

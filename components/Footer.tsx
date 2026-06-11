@@ -3,10 +3,10 @@ import Link from "next/link";
 export default function Footer() {
   return (
     <footer className="bg-gray-900 text-gray-400">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 py-10 sm:py-16 safe-bottom">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 sm:gap-12">
           {/* Brand */}
-          <div className="md:col-span-2">
+          <div className="col-span-2 sm:col-span-2 md:col-span-2">
             <div className="flex items-center gap-1.5 mb-4">
               <span className="text-xl font-extrabold text-white tracking-tight">AIO</span>
               <span className="text-xl font-light text-gray-500">Recipes</span>

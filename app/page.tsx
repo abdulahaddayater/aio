@@ -74,22 +74,23 @@ export default function HomePage() {
       {/* ══════════════════════════════════════════════
           HERO
       ══════════════════════════════════════════════ */}
-      <section className="grid lg:grid-cols-[1fr_1fr] pt-16 min-h-[calc(100svh-0px)] lg:min-h-screen">
+      <section className="grid lg:grid-cols-[1fr_1fr] pt-14 sm:pt-16 min-h-0 lg:min-h-screen">
 
         {/* ── Left: text ── */}
-        <div className="flex flex-col justify-center px-5 sm:px-10 lg:px-16 xl:px-24 py-14 lg:py-0">
+        <div className="flex flex-col justify-center px-4 sm:px-10 lg:px-16 xl:px-24 py-10 sm:py-14 lg:py-0">
 
           <p className="text-[11px] font-semibold tracking-[0.22em] uppercase text-[#FF6B35] mb-5">
             10,000+ Recipes · 50+ Cuisines
           </p>
 
-          <h1 className="text-4xl sm:text-5xl xl:text-[3.4rem] font-extrabold text-gray-900 dark:text-white leading-[1.1] tracking-tight mb-5">
+          <h1 className="text-[1.75rem] leading-tight sm:text-5xl xl:text-[3.4rem] font-extrabold text-gray-900 dark:text-white tracking-tight mb-4 sm:mb-5">
             Find Any Recipe.<br />
-            <span className="text-[#FF6B35]">Cook With</span><br />
+            <span className="text-[#FF6B35]">Cook With</span><br className="sm:hidden" />
+            <span className="hidden sm:inline"><br /></span>
             Confidence.
           </h1>
 
-          <p className="text-base text-gray-500 dark:text-gray-400 leading-relaxed max-w-sm mb-8">
+          <p className="text-sm sm:text-base text-gray-500 dark:text-gray-400 leading-relaxed max-w-sm mb-6 sm:mb-8">
             Step-by-step instructions, calories, and expert video guidance for
             every cuisine and dietary preference.
           </p>
@@ -103,34 +104,36 @@ export default function HomePage() {
             ))}
           </div>
 
-          {/* Search bar */}
+          {/* Search bar — stacks on very small screens */}
           <form
             onSubmit={handleSearch}
-            className="flex items-center bg-white dark:bg-gray-900 rounded-xl shadow-[0_2px_20px_rgba(0,0,0,0.08)] border border-gray-100 dark:border-gray-800 overflow-hidden mb-4 max-w-md"
+            className="flex flex-col sm:flex-row items-stretch sm:items-center bg-white dark:bg-gray-900 rounded-xl shadow-[0_2px_20px_rgba(0,0,0,0.08)] border border-gray-100 dark:border-gray-800 overflow-hidden mb-4 max-w-md"
           >
-            <Search className="w-4 h-4 text-gray-400 ml-4 flex-shrink-0" strokeWidth={1.75} />
-            <input
-              type="text"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Dish, ingredient, or cuisine…"
-              className="flex-1 px-3 py-3.5 text-sm text-gray-800 dark:text-white placeholder-gray-400 bg-transparent focus:outline-none"
-            />
+            <div className="flex flex-1 items-center min-w-0">
+              <Search className="w-4 h-4 text-gray-400 ml-4 flex-shrink-0" strokeWidth={1.75} />
+              <input
+                type="search"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Dish, ingredient, or cuisine…"
+                className="flex-1 min-w-0 px-3 py-3.5 sm:py-3.5 text-base sm:text-sm text-gray-800 dark:text-white placeholder-gray-400 bg-transparent focus:outline-none"
+              />
+            </div>
             <button
               type="submit"
-              className="m-1.5 px-4 py-2 bg-[#FF6B35] hover:bg-orange-600 text-white text-sm font-semibold rounded-lg transition-colors flex-shrink-0"
+              className="m-1.5 sm:m-1.5 px-4 py-3 sm:py-2 bg-[#FF6B35] hover:bg-orange-600 active:bg-orange-700 text-white text-sm font-semibold rounded-lg transition-colors flex-shrink-0 min-h-[44px]"
             >
               Search
             </button>
           </form>
 
-          {/* Quick chips */}
-          <div className="flex flex-wrap gap-2 max-w-md">
+          {/* Quick chips — horizontal scroll on mobile */}
+          <div className="flex gap-2 overflow-x-auto pb-1 -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap scrollbar-hide max-w-md">
             {QUICK_FILTERS.map((f) => (
               <button
                 key={f.label}
                 onClick={() => router.push(`/search?${f.param}=${encodeURIComponent(f.value)}`)}
-                className="px-3 py-1.5 text-xs font-medium rounded-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-500 dark:text-gray-400 hover:border-[#FF6B35] hover:text-[#FF6B35] transition-colors"
+                className="flex-shrink-0 px-3.5 py-2 text-xs font-medium rounded-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-500 dark:text-gray-400 active:border-[#FF6B35] active:text-[#FF6B35] transition-colors min-h-[36px]"
               >
                 {f.label}
               </button>
@@ -180,15 +183,18 @@ export default function HomePage() {
       {/* ══════════════════════════════════════════════
           CATEGORIES
       ══════════════════════════════════════════════ */}
-      <section className="py-16 sm:py-20">
-        <div className="max-w-7xl mx-auto px-5 sm:px-8">
-          <div className="flex items-end justify-between mb-8">
-            <div>
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white tracking-tight">
+      <section className="py-12 sm:py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8">
+          <div className="flex items-end justify-between mb-6 sm:mb-8 gap-4">
+            <div className="min-w-0">
+              <h2 className="text-xl sm:text-3xl font-bold text-gray-900 dark:text-white tracking-tight">
                 Browse by cuisine
               </h2>
-              <p className="text-gray-400 mt-1 text-sm">Authentic flavours from every corner of the world</p>
+              <p className="text-gray-400 mt-1 text-xs sm:text-sm">Authentic flavours from every corner of the world</p>
             </div>
+            <Link href="/search" className="flex-shrink-0 sm:hidden text-xs font-medium text-[#FF6B35]">
+              View all
+            </Link>
             <Link href="/search" className="hidden sm:flex text-sm font-medium text-gray-400 hover:text-[#FF6B35] transition-colors items-center gap-1">
               View all <ArrowUpRight className="w-3.5 h-3.5" strokeWidth={1.5} />
             </Link>
@@ -286,10 +292,10 @@ export default function HomePage() {
       {/* ══════════════════════════════════════════════
           AI CHEF — dark editorial panel
       ══════════════════════════════════════════════ */}
-      <section className="py-16 sm:py-20 px-5 sm:px-8">
+      <section className="py-12 sm:py-20 px-4 sm:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="rounded-2xl overflow-hidden grid lg:grid-cols-2 bg-gray-900 dark:bg-gray-800 min-h-[380px]">
-            <div className="flex flex-col justify-center px-8 sm:px-12 py-12">
+          <div className="rounded-2xl overflow-hidden grid lg:grid-cols-2 bg-gray-900 dark:bg-gray-800 min-h-0 lg:min-h-[380px]">
+            <div className="flex flex-col justify-center px-6 sm:px-12 py-10 sm:py-12 order-2 lg:order-1">
               <span className="text-[11px] font-semibold tracking-widest uppercase text-[#FF6B35] mb-4">AI-Powered</span>
               <h2 className="text-2xl sm:text-3xl font-bold text-white leading-snug mb-4 tracking-tight">
                 Tell us what's in your fridge. Get a recipe instantly.
@@ -298,28 +304,28 @@ export default function HomePage() {
                 Type whatever ingredients you have — eggs, tomatoes, cheese — and our AI builds a
                 full recipe with steps, time, and calories.
               </p>
-              <div className="flex flex-wrap gap-3">
-                <Link href="/ai-chef">
-                  <button className="px-5 py-2.5 bg-[#FF6B35] hover:bg-orange-600 text-white text-sm font-semibold rounded-lg transition-colors flex items-center gap-2">
+              <div className="flex flex-col sm:flex-row flex-wrap gap-3">
+                <Link href="/ai-chef" className="flex-1 sm:flex-none">
+                  <button className="w-full sm:w-auto px-5 py-3 sm:py-2.5 bg-[#FF6B35] hover:bg-orange-600 active:bg-orange-700 text-white text-sm font-semibold rounded-lg transition-colors flex items-center justify-center gap-2 min-h-[44px]">
                     <Sparkles className="w-4 h-4" strokeWidth={1.5} /> Try AI Chef
                   </button>
                 </Link>
-                <Link href="/meal-planner">
-                  <button className="px-5 py-2.5 bg-white/10 hover:bg-white/15 text-white text-sm font-semibold rounded-lg transition-colors border border-white/10 flex items-center gap-2">
+                <Link href="/meal-planner" className="flex-1 sm:flex-none">
+                  <button className="w-full sm:w-auto px-5 py-3 sm:py-2.5 bg-white/10 hover:bg-white/15 active:bg-white/20 text-white text-sm font-semibold rounded-lg transition-colors border border-white/10 flex items-center justify-center gap-2 min-h-[44px]">
                     <Calendar className="w-4 h-4" strokeWidth={1.5} /> Meal Planner
                   </button>
                 </Link>
               </div>
             </div>
-            <div className="relative hidden lg:block">
+            <div className="relative h-44 sm:h-56 lg:h-auto order-1 lg:order-2">
               <Image
                 src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=900&q=85"
                 alt="Chef cooking"
                 fill
-                className="object-cover opacity-70"
-                sizes="50vw"
+                className="object-cover opacity-80 lg:opacity-70"
+                sizes="(max-width: 1024px) 100vw, 50vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-r from-gray-900/80 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-gray-900/90 via-gray-900/40 to-transparent" />
             </div>
           </div>
         </div>

@@ -35,7 +35,7 @@ export default function DashboardPage() {
     : "—";
 
   return (
-    <div className="min-h-screen pt-16 bg-gray-50 dark:bg-gray-950">
+    <div className="min-h-screen pt-14 sm:pt-16 bg-gray-50 dark:bg-gray-950">
 
       {/* ── Top banner ── */}
       <div className="bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800">
@@ -72,12 +72,12 @@ export default function DashboardPage() {
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-1 bg-white dark:bg-gray-900 rounded-2xl p-1 shadow-sm mb-8 overflow-x-auto">
+        <div className="flex gap-1 bg-white dark:bg-gray-900 rounded-2xl p-1 shadow-sm mb-6 sm:mb-8 overflow-x-auto scrollbar-hide -mx-1 px-1">
           {TABS.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap transition ${
+              className={`flex items-center gap-2 px-4 py-3 sm:py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap transition min-h-[44px] sm:min-h-0 flex-shrink-0 ${
                 activeTab === tab.id
                   ? "bg-orange-500 text-white shadow-sm"
                   : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
