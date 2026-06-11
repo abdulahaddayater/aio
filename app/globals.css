@@ -7,23 +7,6 @@
   --foreground: #111827;
   --primary: #FF6B35;
   --secondary: #10B981;
-  --dev-banner-h: 2rem;
-  --nav-h: 3.5rem;
-  --header-h: calc(var(--dev-banner-h) + var(--nav-h));
-}
-
-@media (min-width: 640px) {
-  :root {
-    --nav-h: 4rem;
-  }
-}
-
-.pt-header {
-  padding-top: var(--header-h);
-}
-
-.top-header {
-  top: var(--header-h);
 }
 
 html {

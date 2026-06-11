@@ -35,7 +35,7 @@ export default function DashboardPage() {
     : "—";
 
   return (
-    <div className="min-h-screen pt-header bg-gray-50 dark:bg-gray-950">
+    <div className="min-h-screen pt-14 sm:pt-16 bg-gray-50 dark:bg-gray-950">
 
       {/* ── Top banner ── */}
       <div className="bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800">

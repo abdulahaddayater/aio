@@ -65,7 +65,7 @@ export default function HomePage() {
       {/* ══════════════════════════════════════════════
           HERO
       ══════════════════════════════════════════════ */}
-      <section className="pt-header">
+      <section className="pt-14 sm:pt-16">
         <div className="max-w-2xl mx-auto flex flex-col justify-center px-4 sm:px-8 py-12 sm:py-20 lg:py-24 text-center sm:text-left">
 
           <p className="text-[11px] font-semibold tracking-[0.22em] uppercase text-[#FF6B35] mb-5">

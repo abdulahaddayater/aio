@@ -29,28 +29,14 @@ export default function Navbar() {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 safe-top">
-      <div
-        role="status"
-        aria-live="polite"
-        className="bg-[#FFF7ED] dark:bg-orange-950/40 border-b border-orange-200/60 dark:border-orange-900/40"
-      >
-        <p className="max-w-7xl mx-auto px-4 sm:px-8 py-2 text-center text-[11px] sm:text-xs leading-tight text-amber-900/90 dark:text-orange-100/90">
-          <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#FF6B35] animate-pulse mr-1.5 align-middle" aria-hidden />
-          <span className="font-semibold text-[#C2410C] dark:text-orange-300">Under development</span>
-          <span className="mx-1.5 hidden sm:inline text-amber-800/50 dark:text-orange-200/50">·</span>
-          <span className="hidden sm:inline">We&apos;re still building — recipes and features may change.</span>
-          <span className="sm:hidden"> More coming soon</span>
-        </p>
-      </div>
-      <nav
-        className={cn(
-          "transition-all duration-200",
-          scrolled
-            ? "bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border-b border-gray-100 dark:border-gray-800"
-            : "bg-[#FAF8F5]/80 dark:bg-gray-950/80 backdrop-blur-sm"
-        )}
-      >
+    <nav
+      className={cn(
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-200 safe-top",
+        scrolled
+          ? "bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border-b border-gray-100 dark:border-gray-800"
+          : "bg-[#FAF8F5]/80 dark:bg-gray-950/80 backdrop-blur-sm"
+      )}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
         <div className="flex items-center justify-between h-14 sm:h-16">
 
@@ -121,11 +107,11 @@ export default function Navbar() {
       {mobileOpen && (
         <>
           <div
-            className="md:hidden fixed inset-0 top-header bg-black/40 z-40"
+            className="md:hidden fixed inset-0 top-14 bg-black/40 z-40"
             onClick={() => setMobileOpen(false)}
             aria-hidden
           />
-          <div className="md:hidden fixed left-0 right-0 top-header z-50 bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800 shadow-lg max-h-[calc(100dvh-var(--header-h))] overflow-y-auto safe-bottom">
+          <div className="md:hidden fixed left-0 right-0 top-14 z-50 bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800 shadow-lg max-h-[calc(100dvh-3.5rem)] overflow-y-auto safe-bottom">
             <div className="px-4 py-2">
               {links.map((l) => (
                 <Link
@@ -155,7 +141,6 @@ export default function Navbar() {
           </div>
         </>
       )}
-      </nav>
-    </header>
+    </nav>
   );
 }
