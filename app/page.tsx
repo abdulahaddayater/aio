@@ -2,19 +2,10 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
-import { Search, ArrowUpRight, Sparkles, Calendar, UtensilsCrossed, Heart } from "lucide-react";
+import { Search, ArrowUpRight, Sparkles, Calendar } from "lucide-react";
 import { getFeaturedRecipes, getTrendingRecipes, recipes } from "@/lib/data";
 import RecipeCard from "@/components/RecipeCard";
 import { useRouter } from "next/navigation";
-import { cn } from "@/lib/utils";
-
-const MOSAIC = [
-  { src: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=900&q=85", alt: "Butter Chicken" },
-  { src: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=900&q=85", alt: "Biryani" },
-  { src: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=900&q=85", alt: "Dessert" },
-  { src: "https://images.unsplash.com/photo-1553621042-f6e147245754?w=900&q=85", alt: "Sushi" },
-  { src: "https://images.unsplash.com/photo-1559314809-0d155014e29e?w=900&q=85", alt: "Pad Thai" },
-];
 
 const CATEGORIES = [
   {
@@ -74,10 +65,8 @@ export default function HomePage() {
       {/* ══════════════════════════════════════════════
           HERO
       ══════════════════════════════════════════════ */}
-      <section className="grid lg:grid-cols-[1fr_1fr] pt-14 sm:pt-16 min-h-0 lg:min-h-screen">
-
-        {/* ── Left: text ── */}
-        <div className="flex flex-col justify-center px-4 sm:px-10 lg:px-16 xl:px-24 py-10 sm:py-14 lg:py-0">
+      <section className="pt-14 sm:pt-16">
+        <div className="max-w-2xl mx-auto flex flex-col justify-center px-4 sm:px-8 py-12 sm:py-20 lg:py-24 text-center sm:text-left">
 
           <p className="text-[11px] font-semibold tracking-[0.22em] uppercase text-[#FF6B35] mb-5">
             10,000+ Recipes · 50+ Cuisines
@@ -90,24 +79,14 @@ export default function HomePage() {
             Confidence.
           </h1>
 
-          <p className="text-sm sm:text-base text-gray-500 dark:text-gray-400 leading-relaxed max-w-sm mb-6 sm:mb-8">
+          <p className="text-sm sm:text-base text-gray-500 dark:text-gray-400 leading-relaxed max-w-sm mx-auto sm:mx-0 mb-6 sm:mb-8">
             Step-by-step instructions, calories, and expert video guidance for
             every cuisine and dietary preference.
           </p>
 
-          {/* Mobile image strip — shown only on < lg */}
-          <div className="flex gap-2 overflow-x-auto pb-1 mb-8 lg:hidden -mx-5 px-5 scrollbar-hide">
-            {MOSAIC.map((m, i) => (
-              <div key={i} className="flex-shrink-0 w-28 h-20 relative rounded-xl overflow-hidden bg-gray-200">
-                <Image src={m.src} alt={m.alt} fill className="object-cover" sizes="112px" />
-              </div>
-            ))}
-          </div>
-
-          {/* Search bar — stacks on very small screens */}
           <form
             onSubmit={handleSearch}
-            className="flex flex-col sm:flex-row items-stretch sm:items-center bg-white dark:bg-gray-900 rounded-xl shadow-[0_2px_20px_rgba(0,0,0,0.08)] border border-gray-100 dark:border-gray-800 overflow-hidden mb-4 max-w-md"
+            className="flex flex-col sm:flex-row items-stretch sm:items-center bg-white dark:bg-gray-900 rounded-xl shadow-[0_2px_20px_rgba(0,0,0,0.08)] border border-gray-100 dark:border-gray-800 overflow-hidden mb-4 max-w-md mx-auto sm:mx-0"
           >
             <div className="flex flex-1 items-center min-w-0">
               <Search className="w-4 h-4 text-gray-400 ml-4 flex-shrink-0" strokeWidth={1.75} />
@@ -127,8 +106,7 @@ export default function HomePage() {
             </button>
           </form>
 
-          {/* Quick chips — horizontal scroll on mobile */}
-          <div className="flex gap-2 overflow-x-auto pb-1 -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap scrollbar-hide max-w-md">
+          <div className="flex gap-2 overflow-x-auto pb-1 -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap scrollbar-hide max-w-md mx-auto sm:mx-0 justify-center sm:justify-start">
             {QUICK_FILTERS.map((f) => (
               <button
                 key={f.label}
@@ -138,25 +116,6 @@ export default function HomePage() {
                 {f.label}
               </button>
             ))}
-          </div>
-        </div>
-
-        {/* ── Right: photo mosaic (desktop only) ── */}
-        <div className="hidden lg:grid grid-cols-2 grid-rows-3 gap-2 h-screen p-2 bg-gray-100 dark:bg-gray-900">
-          <div className="row-span-2 relative overflow-hidden rounded-2xl">
-            <Image src={MOSAIC[0].src} alt={MOSAIC[0].alt} fill className="object-cover hover:scale-[1.03] transition-transform duration-700" sizes="25vw" priority />
-          </div>
-          <div className="relative overflow-hidden rounded-2xl">
-            <Image src={MOSAIC[1].src} alt={MOSAIC[1].alt} fill className="object-cover hover:scale-[1.03] transition-transform duration-700" sizes="25vw" />
-          </div>
-          <div className="relative overflow-hidden rounded-2xl">
-            <Image src={MOSAIC[2].src} alt={MOSAIC[2].alt} fill className="object-cover hover:scale-[1.03] transition-transform duration-700" sizes="25vw" />
-          </div>
-          <div className="relative overflow-hidden rounded-2xl">
-            <Image src={MOSAIC[3].src} alt={MOSAIC[3].alt} fill className="object-cover hover:scale-[1.03] transition-transform duration-700" sizes="25vw" />
-          </div>
-          <div className="relative overflow-hidden rounded-2xl">
-            <Image src={MOSAIC[4].src} alt={MOSAIC[4].alt} fill className="object-cover hover:scale-[1.03] transition-transform duration-700" sizes="25vw" />
           </div>
         </div>
       </section>
